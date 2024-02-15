@@ -1,0 +1,4 @@
+[
+    { "title": "Database connection", "description": "Mongo db database", "priority": "P1", "type": "task", "labels": ["database", "mongoose"]},
+    { "title": "Issues CRUD", "description": "Implement issues routes and controller", "priority": "P1", "type": "task", "labels": ["issues", "controller", "routes"]}
+]
