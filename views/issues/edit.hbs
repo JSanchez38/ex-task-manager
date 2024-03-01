@@ -1,4 +1,4 @@
-<form action="/create-issue" method="post">
+<form action="/issues/{{issue.id}}/edit" method="post">
     <div class="input-group mb-1">
         <span class="input-group-text"><i class="fa fa-tag fa-fw"></i></span>
         <input type="text" name="title" value="{{issue.title}}"class="form-control {{#if errors.title}}is-invalid {{/if}}" placeholder="Issue title">
@@ -7,10 +7,10 @@
 
     <div class="input-group mb-1">
         <span class="input-group-text"><i class="fa fa-book fa-fw"></i></span>
-        <input type="text" name="description" value="{{issue.description}}" class="form-control {{#if errors.description}} is-invalid{{/if}}" placeholder="Issue description">
+        <textarea name="description" id="description-md" class="form-control {{#if errors.description}} is-invalid{{/if}}" placeholder="Issue description">{{issue.description}}</textarea>
         {{#if errors.description}} <div class="invalid-feedback">{{errors.description}}</div>{{/if}}
     </div>
     <div class="form-actions">
-        <button type="submit" class="btn btn-outline-primary">Create issue</button>
+        <button type="submit" class="btn btn-outline-primary">Edit issue</button>
     </div>
 </form>
