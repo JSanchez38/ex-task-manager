@@ -2,7 +2,9 @@
 const express = require('express')
 const issues = require('../controllers/issues.controller')
 const users = require('../controllers/users.controller')
+const messages = require('../controllers/messages.controller')
 const secure = require('../middlewares/auth.middleware')
+
 
 const router = express.Router()
 
@@ -15,6 +17,8 @@ router.get('/issues/:id/delete', secure.isAuthenticated, issues.delete) //delete
 
 router.get('/issues/:id/edit', secure.isAuthenticated, issues.edit)
 router.post('/issues/:id/edit', secure.isAuthenticated, issues.doEdit)
+
+router.post('/issues/:issueId/messages', secure.isAuthenticated, messages.doCreate)  // guardarnos el :id por si queremos añadir una nueva ruta de editar mensage
 
 //User crud
 router.get('/login', users.login)

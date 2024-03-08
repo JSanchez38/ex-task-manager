@@ -13,6 +13,10 @@ const issueSchema = new Schema(
             required: [true, 'Description is required'],
             minLength: [10, 'Description needs at least 10 chars']
         },
+        private: {
+            type: Boolean,
+            default: true
+        },
         priority: {
             type: String,
             enum: ['P1', 'P2', 'P3', 'P4'],
@@ -23,7 +27,12 @@ const issueSchema = new Schema(
             enum: ['task', 'bug'],
             default: 'task'
         },
-        labels:[String]
+        labels:[String],
+        owner: {
+            type: mongoose.Types.ObjectId,
+            ref: 'User',
+            require: true
+        }
     },
     { timestamps: true }
 )

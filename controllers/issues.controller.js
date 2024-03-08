@@ -10,12 +10,16 @@ module.exports.list = (req, res, next) => {
 
 module.exports.delete = (req, res, next) => {
     const id = req.params.id
-    Issue.findByIdAndDelete(id)
+
+    Issue.findById(id)
         .then((issue) => {
             if (!issue) {
                 next(createError(404, 'Issue not found'))
+            } else if (issue.owner != req.user.id) {
+                next(createError(403, 'Forbidden'))
             } else {
-                res.redirect('/issues')
+                return Issue.deleteOne( { _id: id})
+                    .then(() => res.redirect('/issues'))
             }
         })
         .catch((error) => next(error))
@@ -27,6 +31,9 @@ module.exports.create = (req, res, next) => {
 
 module.exports.doCreate = (req, res, next) => {
     const issue = req.body
+
+    issue.owner = req.user.id
+
     Issue.create(issue)
         .then((issue) => res.redirect('/issues'))
         .catch((error) => {
@@ -41,6 +48,7 @@ module.exports.doCreate = (req, res, next) => {
 module.exports.detail = (req, res, next) => {
     const { id } = req.params
     Issue.findById(id)
+        .populate('owner')
         .then((issue) => {
             if (!issue) {
                 next(createError(404, 'Issue not found'))

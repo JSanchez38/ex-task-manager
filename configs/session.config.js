@@ -23,7 +23,7 @@ module.exports.session = expressSession({
 module.exports.loadUserSession = (req, res, next) => {
     const userId = req.session.userId
 
-    if(!userId) {
+    if (!userId) {
         next()
     } else {
         User.findById(userId)
